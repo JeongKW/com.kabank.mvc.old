@@ -1,0 +1,5 @@
+@charset "UTF-8";
+	table#add_member_table { width: 500px; height: 300px; margin: 40px 0px 0px 250px; text-align: left; border-collapse: separate; }
+	#add_member_table tr { height: 30px; }
+	#add_member_table tr td { margin-left: 5px; height: 20px; }
+	button#add_members_btn { width: 60px; float: right;}

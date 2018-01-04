@@ -1,0 +1,6 @@
+@charset "UTF-8";
+	div#bitwrapper { width: 95%; height: 650px; text-align: center}
+	table#bitmain_table { width: 80%; height: 400px; border: 1px solid gray}
+	#bitmain_table tr { width: 80px; height: 80px; border: 1px solid gray; }
+	#bitmain_table tr td, th { border: inherit; }
+	button#attend_result { width:100px; height: 40px; float: right; border-right: 30px;}
