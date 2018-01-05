@@ -2,7 +2,7 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>BITCAMP</title>
-	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/Favicon.ico" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/burgerking.css" />

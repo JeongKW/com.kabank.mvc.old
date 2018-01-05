@@ -22,12 +22,26 @@
 				<tr>
 					<td>a</td>
 					<td>a</td>
-					<td>a</td>
+					<td>
+						테이블 생성<br/>
+					<form id="create_form" action="${pageContext.request.contextPath}/admin/create_table.do ">
+						<select name="tname" id="tname">
+							<option>선택하세요</option>
+							<option value="member">회원테이블</option>
+							<option value="attend">출석테이블</option>
+						</select>
+						<button id="create_btn">생 성</button>
+					</form>
+					</td>
 				</tr>
 			</table>
 		</section>
 	</div>
 	<%@ include file="../common/footer.jsp" %>
 </body>
-<script src="../../resources/js/admin/main.js"></script>
+<script>
+	document.querySelector('#create_btn').addEventListener("click", function(){
+		document.querySelector('#create_form').submit();
+	}, false);
+</script>
 </html>

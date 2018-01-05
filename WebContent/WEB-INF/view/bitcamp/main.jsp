@@ -2,30 +2,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.kabank.mvc.domain.AttendBean"%>
-<%
-	Connection conn = null;
-	Statement stmt = null;
-	ResultSet rs = null;
-	List<AttendBean> result = new ArrayList<>();
-	String sql = "";
-	try{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "bitcamp", "bitcamp");
-		stmt = conn.createStatement();
-		sql = "SELECT id, week, status FROM Attendstatus";
-		rs = stmt.executeQuery(sql);
-		List<String> list = new ArrayList<>();
-		while(rs.next()){
-			
-		}
-	} catch(SQLException ex){
-		ex.printStackTrace();
-	} finally{
-			if(rs != null){ try{ rs.close(); } catch(Exception e){ e.printStackTrace(); } }
-			if(stmt != null){ try{ stmt.close(); } catch(Exception e){ e.printStackTrace(); } }
-			if(conn != null){ try{ conn.close(); } catch(Exception e){ e.printStackTrace(); } }
-	}
-%>
 <!doctype html>
 <html lang="en">
 <%@ include file="../common/head.jsp" %>
