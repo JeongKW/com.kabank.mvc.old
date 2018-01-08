@@ -16,20 +16,15 @@ import com.kabank.mvc.serviceImpl.MemberServiceImpl;
 @WebServlet({"/user/login.do", "/user/join.do", "/user/auth.do", "/user/confirm.do"})
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	MemberService service;
-	MemberBean m;
-	
-	public MemberController() {
-		service = new MemberServiceImpl();
-		m = new MemberBean();
-	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		MemberService service = new MemberServiceImpl();
+		MemberBean m = null;
 		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
 		String action = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
 		String dest = "";
 		switch(action) {
 			case "auth":
+				m = new MemberBean();
 				m.setId(request.getParameter("id"));
 				m.setPw(request.getParameter("pw"));
 				if(service.login(m) == true) {
@@ -40,6 +35,7 @@ public class MemberController extends HttpServlet {
 				}
 				break;
 			case "confirm":
+				m = new MemberBean();
 				m.setId(request.getParameter("id"));
 				m.setPw(request.getParameter("pw"));
 				m.setName(request.getParameter("name"));

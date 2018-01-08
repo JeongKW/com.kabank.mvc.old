@@ -1,11 +1,7 @@
 package com.kabank.mvc.daoImpl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.sql.*;
 
 import com.kabank.mvc.constants.AdminSQL;
 import com.kabank.mvc.constants.CommonSQL;
