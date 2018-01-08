@@ -15,13 +15,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public Boolean login(MemberBean m) {
-		List<MemberBean> list = dao.selectMembers();
+		MemberBean mem = dao.selectMemberById(m);
 		Boolean loginOk = false;
-		for(int i = 0; i < list.size(); i++) {
-			if(m.getId().equalsIgnoreCase(list.get(i).getId()) && m.getPw().equalsIgnoreCase(list.get(i).getPw())) {
-					loginOk = true;
-					break;
-			}
+		if(mem != null) {
+			loginOk = true;
 		}
 		return loginOk;
 	}

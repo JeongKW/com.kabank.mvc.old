@@ -8,4 +8,5 @@ public interface MemberDAO {
 	public List<MemberBean> selectMembers();
 	public void createMember();
 	public void insertMember(MemberBean m);
+	public MemberBean selectMemberById(MemberBean m);
 }

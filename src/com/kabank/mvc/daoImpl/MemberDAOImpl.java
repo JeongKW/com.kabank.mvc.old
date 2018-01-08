@@ -88,7 +88,6 @@ public class MemberDAOImpl implements MemberDAO{
 		try {
 			Class.forName(DBMS.ORACLE_DRIVER);
 			Connection conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
-			Statement stmt = conn.createStatement();
 			String sql = "";
 			sql += Enums.DML.INSERT + " " + Enums.DML.INTO + " " + Enums.Table.MEMBER + "(";
 //			for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
@@ -103,17 +102,56 @@ public class MemberDAOImpl implements MemberDAO{
 				if(!(i==Enums.MembersColumn.values().length - 1)) {
 					sql += values[i] + ", ";
 				} else {
-					sql += values[i] + ")";
+					sql += values[i] + ") ";
 				}
 			}
-			sql += String.format(Enums.DML.VALUES + " ("
-					+ Enums.getBlanks(Enums.MembersColumn.values().length)
-					+ ")", 
-					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr());
-			stmt.executeUpdate(sql);
+//			sql += String.format(Enums.DML.VALUES + " ("
+//					+ Enums.getBlanks(Enums.MembersColumn.values().length)
+//					+ ")", 
+//					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr());
+			sql += Enums.DML.VALUES + "(?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getId());
+			pstmt.setString(2, m.getPw());
+			pstmt.setString(3, m.getName());
+			pstmt.setString(4, m.getSsn());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getProfile());
+			pstmt.setString(8, m.getAddr());
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
+
+	@Override
+	public MemberBean selectMemberById(MemberBean m) {
+		MemberBean res = null;
+		String sql = "SELECT * FROM Member WHERE id like ? AND pw like ?";
+		try {
+			Class.forName(DBMS.ORACLE_DRIVER);
+			Connection conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getId());
+			pstmt.setString(2, m.getPw());
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				res = new MemberBean();
+				res.setId(rs.getString("id"));
+				res.setPw(rs.getString("pw"));
+				res.setName(rs.getString("name"));
+				res.setSsn(rs.getString("ssn"));
+				res.setPhone(rs.getString("phone"));
+				res.setEmail(rs.getString("email"));
+				res.setProfile(rs.getString("profile"));
+				res.setAddr(rs.getString("addr"));				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 }
