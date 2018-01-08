@@ -9,9 +9,10 @@ import com.kabank.mvc.constants.DBMS;
 import com.kabank.mvc.constants.MemberSQL;
 import com.kabank.mvc.dao.MemberDAO;
 import com.kabank.mvc.domain.MemberBean;
+import com.kabank.mvc.util.Enums;
 
 public class MemberDAOImpl implements MemberDAO{
-
+	//Singleton 적용해야 할듯.. DB..
 	@Override
 	public List<MemberBean> selectMembers() {
 		List<MemberBean> list = new ArrayList<>();
@@ -79,5 +80,28 @@ public class MemberDAOImpl implements MemberDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void insertMember(MemberBean m) {
+		try {
+			Class.forName(DBMS.ORACLE_DRIVER);
+			Connection conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
+			Statement stmt = conn.createStatement();
+			String sql = "INSERT INTO Member(";
+			for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
+				if(c.ordinal() == Enums.MembersColumn.values().length - 1) {
+					sql += c + ") ";
+				} else {
+					sql += c + ", ";
+				}
+			}
+			sql += String.format(" VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')", 
+					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr());
+			stmt.executeUpdate(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

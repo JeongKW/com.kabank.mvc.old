@@ -13,7 +13,7 @@
 		</header>
 		<section>
 			<article>
-				<form id="member_form" action="${pageContext.request.contextPath}/user/login.do">
+				<form id="member_form" action="${pageContext.request.contextPath}/user/confirm.do">
 					<table>
 						<tr>
 							<td id="memtype_td">ID </td>
@@ -70,7 +70,7 @@
 						<tr>
 							<td id="memtype_td">이메일</td>
 							<td>
-								<input style="width: 100px" type="email" name="email" />&nbsp;@
+								<input style="width: 100px" type="text" name="email" />&nbsp;@
 								<select name="email_dot" id="">
 									<option value="naver.com">naver.com</option>
 									<option value="nate.com">nate.com</option>
