@@ -1,7 +1,11 @@
 package com.kabank.mvc.daoImpl;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.kabank.mvc.constants.AdminSQL;
 import com.kabank.mvc.constants.CommonSQL;
@@ -10,6 +14,7 @@ import com.kabank.mvc.constants.MemberSQL;
 import com.kabank.mvc.dao.MemberDAO;
 import com.kabank.mvc.domain.MemberBean;
 import com.kabank.mvc.util.Enums;
+import com.kabank.mvc.util.Enums.MembersColumn;
 
 public class MemberDAOImpl implements MemberDAO{
 	//Singleton 적용해야 할듯.. DB..
@@ -90,11 +95,19 @@ public class MemberDAOImpl implements MemberDAO{
 			Statement stmt = conn.createStatement();
 			String sql = "";
 			sql += Enums.DML.INSERT + " " + Enums.DML.INTO + " " + Enums.Table.MEMBER + "(";
-			for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
-				if(c.ordinal() == Enums.MembersColumn.values().length - 1) {
-					sql += c + ") ";
+//			for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
+//				if(c.ordinal() == Enums.MembersColumn.values().length - 1) {
+//					sql += c + ") ";
+//				} else {
+//					sql += c + ", ";
+//				}
+//			}
+			MembersColumn[] values = Enums.MembersColumn.values();
+			for(int i = 0; i < Enums.MembersColumn.values().length; i++) {
+				if(!(i==Enums.MembersColumn.values().length - 1)) {
+					sql += values[i] + ", ";
 				} else {
-					sql += c + ", ";
+					sql += values[i] + ")";
 				}
 			}
 			sql += String.format(Enums.DML.VALUES + " ("
