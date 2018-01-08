@@ -17,6 +17,7 @@ public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AdminService service = new AdminServiceImpl();
 		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
 		String action = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
 		String dest = "";
@@ -25,7 +26,6 @@ public class AdminController extends HttpServlet {
 				dest = action;
 				break;
 			case "create_table":
-				AdminService service = new AdminServiceImpl();
 				service.createTable(request.getParameter("tname"));
 				dest = "main";
 				break;

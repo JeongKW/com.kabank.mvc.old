@@ -15,11 +15,9 @@ import com.kabank.mvc.serviceImpl.CommonServiceImpl;
 @WebServlet("/common/jdbc_test.do")
 public class CommonController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	CommonService service;
-    public CommonController() {
-    	service = new CommonServiceImpl();
-	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CommonService service = new CommonServiceImpl();
 		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
 		String dest = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
 		request.setAttribute("count", service.countTable());
