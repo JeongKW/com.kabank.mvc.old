@@ -1,6 +1,12 @@
 @charset "UTF-8";
-	div#bitwrapper { width: 95%; height: 650px; text-align: center}
-	table#bitmain_table { width: 80%; height: 400px; border: 1px solid gray}
-	#bitmain_table tr { width: 80px; height: 80px; border: 1px solid gray; }
+	div#bitwrapper { width: 95%; height: 650px; text-align: center; margin: 0 auto}
+	table#bitcamp_profile { width: 80%; height: 300px; border: 1px solid gray}
+	#bitcamp_profile tr { height: 40px; border: 1px solid black }
+	#bitcamp_profile tr td.profile_attr{ width: 120px; height: 40px; border: 1px solid black}
+	#bitcamp_profile tr td.profile_info{ width: 120px; height: 40px; border: 1px solid black}
+	#bitcamp_profile tr td#profile_photo{ width: 270px; height: 120px; border: 1px solid black }
+	table#bitmain_table { width: 80%; height: 200px; border: 1px solid gray; }
+	#bitmain_table tr { width: 80px; height: 40px; border: 1px solid gray; }
 	#bitmain_table tr td, th { border: inherit; }
 	button#attend_result { width:100px; height: 40px; float: right; border-right: 30px;}
+	img#profile_img { width: 200px; height: 200px }

@@ -14,13 +14,9 @@ public class MemberServiceImpl implements MemberService{
 		dao = new MemberDAOImpl();
 	}
 	@Override
-	public Boolean login(MemberBean m) {
-		MemberBean mem = dao.selectMemberById(m);
-		Boolean loginOk = false;
-		if(mem != null) {
-			loginOk = true;
-		}
-		return loginOk;
+	public MemberBean findMemberById(MemberBean m) {
+		
+		return dao.selectMemberById(m);
 	}
 	@Override
 	public void join(MemberBean m) {

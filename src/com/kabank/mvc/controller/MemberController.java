@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kabank.mvc.constants.Path;
 import com.kabank.mvc.domain.MemberBean;
@@ -18,33 +19,36 @@ public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberService service = new MemberServiceImpl();
-		MemberBean m = null;
+		MemberBean param = null;
 		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
 		String action = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
 		String dest = "";
+		HttpSession session = request.getSession();
 		switch(action) {
 			case "auth":
-				m = new MemberBean();
-				m.setId(request.getParameter("id"));
-				m.setPw(request.getParameter("pw"));
-				if(service.login(m) == true) {
+				param = new MemberBean();
+				param.setId(request.getParameter("id"));
+				param.setPw(request.getParameter("pw"));
+				MemberBean member = service.findMemberById(param);
+				if(member != null) {
 					dir = "bitcamp";
 					dest = "main";
+					session.setAttribute("user", member);
 				} else {
 					dest = "login";
 				}
 				break;
 			case "confirm":
-				m = new MemberBean();
-				m.setId(request.getParameter("id"));
-				m.setPw(request.getParameter("pw"));
-				m.setName(request.getParameter("name"));
-				m.setSsn(request.getParameter("ssn_head") + "-" + request.getParameter("ssn_tail"));
-				m.setPhone(request.getParameter("phone_head") + "-" + request.getParameter("phone_mid") + "-" + request.getParameter("phone_tail"));
-				m.setEmail(request.getParameter("email") + "@" + request.getParameter("email_dot"));
-				m.setProfile(request.getParameter("profile"));
-				m.setAddr(request.getParameter("addr") + " " + request.getParameter("addr_detail"));
-				service.join(m);
+				param = new MemberBean();
+				param.setId(request.getParameter("id"));
+				param.setPw(request.getParameter("pw"));
+				param.setName(request.getParameter("name"));
+				param.setSsn(request.getParameter("ssn_head") + "-" + request.getParameter("ssn_tail"));
+				param.setPhone(request.getParameter("phone_head") + "-" + request.getParameter("phone_mid") + "-" + request.getParameter("phone_tail"));
+				param.setEmail(request.getParameter("email") + "@" + request.getParameter("email_dot"));
+				param.setProfile(request.getParameter("profile"));
+				param.setAddr(request.getParameter("addr") + " " + request.getParameter("addr_detail"));
+				service.join(param);
 				dest = "login";
 				break;
 			case "join":
