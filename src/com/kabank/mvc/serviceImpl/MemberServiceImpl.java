@@ -27,7 +27,17 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public void join(MemberBean m) {
-		dao.insertMember(m);
+		List<MemberBean> list = dao.selectMembers();
+		boolean exist = false;
+		for(int i=0; i < list.size(); i++) {
+			if(m.getId().equals(list.get(i).getId())) {
+				exist = true;
+				break;
+			}
+		}
+		if(!exist) {
+			dao.insertMember(m);
+		}
 	}
 	
 }

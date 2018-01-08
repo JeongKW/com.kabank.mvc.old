@@ -88,7 +88,8 @@ public class MemberDAOImpl implements MemberDAO{
 			Class.forName(DBMS.ORACLE_DRIVER);
 			Connection conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
 			Statement stmt = conn.createStatement();
-			String sql = "INSERT INTO Member(";
+			String sql = "";
+			sql += Enums.DML.INSERT + " " + Enums.DML.INTO + " " + Enums.Table.MEMBER + "(";
 			for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
 				if(c.ordinal() == Enums.MembersColumn.values().length - 1) {
 					sql += c + ") ";
@@ -96,7 +97,9 @@ public class MemberDAOImpl implements MemberDAO{
 					sql += c + ", ";
 				}
 			}
-			sql += String.format(" VALUES ('%s','%s','%s','%s','%s','%s','%s','%s')", 
+			sql += String.format(Enums.DML.VALUES + " ("
+					+ Enums.getBlanks(Enums.MembersColumn.values().length)
+					+ ")", 
 					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr());
 			stmt.executeUpdate(sql);
 		} catch (Exception e) {

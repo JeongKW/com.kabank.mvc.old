@@ -74,7 +74,7 @@
 								<select name="email_dot" id="">
 									<option value="naver.com">naver.com</option>
 									<option value="nate.com">nate.com</option>
-									<option value="hanmail.com">hanmail.com</option>
+									<option value="hanmail.net">hanmail.net</option>
 									<option value="gmail.com">gmail.com</option>
 								</select>
 							</td>
