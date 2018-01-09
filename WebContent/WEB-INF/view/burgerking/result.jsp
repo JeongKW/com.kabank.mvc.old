@@ -9,8 +9,6 @@
 <jsp:useBean id="sides" class="com.kabank.mvc.domain.BurgerKingBean" scope="request"></jsp:useBean>
 <!doctype html>
 <html lang="en">
-<%@ include file="../common/head.jsp" %>
-<body>
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/nav.jsp" %>
 <%

@@ -7,10 +7,9 @@ import com.kabank.mvc.daoImpl.MemberDAOImpl;
 import com.kabank.mvc.service.AdminService;
 
 public class AdminServiceImpl implements AdminService{
-	MemberDAO memberDao;
+	MemberDAO memberDao = null;
 	AttendDAO attendDao;
 	public AdminServiceImpl() {
-		memberDao = new MemberDAOImpl();
 		attendDao = new AttendDAOImpl();
 	}
 	@Override

@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="en">
-<%@ include file="../common/head.jsp" %>
-<body>
 	<div id="wrapper">
 		<header id="member_header">
 			<h1>BIT CAMP SAMPLE PROJECT</h1>
@@ -97,7 +93,6 @@
 		</section>
 	</div>
 <%@ include file="../common/footer.jsp" %>
-</body>
 <script>
 	document.querySelector('#join_confirm_btn').addEventListener('click', 
 		function () {

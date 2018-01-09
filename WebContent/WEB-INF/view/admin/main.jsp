@@ -1,8 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="en">
-<%@ include file="../common/head.jsp" %>
-<body>
 	<div id="wrapper">
 		<header>
 			<h1>관리자 메인 페이지</h1>
@@ -38,7 +34,6 @@
 		</section>
 	</div>
 	<%@ include file="../common/footer.jsp" %>
-</body>
 <script>
 	document.querySelector('#create_btn').addEventListener("click", function(){
 		document.querySelector('#create_form').submit();

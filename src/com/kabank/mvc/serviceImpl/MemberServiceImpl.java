@@ -9,13 +9,15 @@ import com.kabank.mvc.service.MemberService;
 
 public class MemberServiceImpl implements MemberService{
 	MemberDAO dao;
-	
-	public MemberServiceImpl() {
-		dao = new MemberDAOImpl();
+	public static MemberServiceImpl getInstance() {
+		return new MemberServiceImpl();
+	}
+
+	private MemberServiceImpl() {
+		dao = MemberDAOImpl.getInstance();
 	}
 	@Override
 	public MemberBean findMemberById(MemberBean m) {
-		
 		return dao.selectMemberById(m);
 	}
 	@Override

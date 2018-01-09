@@ -1,20 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="com.kabank.mvc.domain.AttendBean"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!doctype html>
-<html lang="en">
-<%@ include file="../common/head.jsp" %>
-<body>
 <%@ include file="../common/header.jsp" %>
 <%@ include file="../common/nav.jsp" %>
 <div id="bitwrapper">
 	<section>
 		<table id="bitcamp_profile">
 			<tr>
-				<td id="profile_photo" rowspan="4"><img id="profile_img" src="${pageContext.request.contextPath}/resources/img/default_profile.jpg" alt="" /></td>
+				<td id="profile_photo" rowspan="4"><img id="profile_img" src="${img}/default_profile.jpg" alt="" /></td>
 				<td class="profile_attr">ID</td>
 				<td class="profile_info">${sessionScope.user.id}</td>
 				<td class="profile_attr">생년월일</td>
@@ -122,5 +113,4 @@
 	</section>
 </div>
 <%@ include file="../common/footer.jsp" %>
-</body>
 </html>

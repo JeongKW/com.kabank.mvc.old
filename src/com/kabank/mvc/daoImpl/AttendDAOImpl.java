@@ -9,22 +9,7 @@ import java.sql.*;
 import java.util.*;
 
 public class AttendDAOImpl implements AttendDAO{
-//	private static AttendDAO instance;
-//	public static AttendDao AttendDAOImpl() {
-//		if(instance == null) {
-//			instance = new AttendDAOImpl();
-//		}
-//		return instance;
-//	}
-//	private Connection conn;
-//	private AttendDAOImpl() {
-//		try {
-//			Class.forName(DBMS.ORACLE_DRIVER);
-//			conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//		}
-//	}
+
 	@Override
 	public void createAttend() {
 		List<String> tlist = new ArrayList<>();

@@ -2,7 +2,6 @@
 <%@ page import="com.kabank.mvc.domain.LottoBean" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ include file="../common/head.jsp" %>
 <%@ include file="../common/nav.jsp" %>
 <%!
 	public int countRow(String money){

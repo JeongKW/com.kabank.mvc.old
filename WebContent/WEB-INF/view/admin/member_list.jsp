@@ -67,10 +67,6 @@
 			try{ conn.close(); } catch(Exception e){ e.printStackTrace(); } }
 	}
 %>
-<!doctype html>
-<html lang="en">
-<%@ include file="../common/head.jsp" %>
-<body>
 	<div id="wrapper">
 		<header>
 			<h1>관리자 메인 페이지</h1>
@@ -127,6 +123,5 @@
 		</section>
 	</div>
 	<%@ include file="../common/footer.jsp" %>
-</body>
 <script src="../../resources/js/admin/member_list.js"></script>
 </html>

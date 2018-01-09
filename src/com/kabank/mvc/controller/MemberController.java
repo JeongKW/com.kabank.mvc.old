@@ -18,7 +18,7 @@ import com.kabank.mvc.serviceImpl.MemberServiceImpl;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberService service = new MemberServiceImpl();
+		MemberService service = MemberServiceImpl.getInstance();
 		MemberBean param = null;
 		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
 		String action = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
