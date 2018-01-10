@@ -1,10 +1,12 @@
 package com.kabank.mvc.daoImpl;
 
-import java.sql.*;
+import java.sql.ResultSet;
 
-import com.kabank.mvc.constants.CommonSQL;
-import com.kabank.mvc.constants.DBMS;
 import com.kabank.mvc.dao.CommonDAO;
+import com.kabank.mvc.enums.DmlEnum;
+import com.kabank.mvc.enums.TnameEnum;
+import com.kabank.mvc.enums.Vendor;
+import com.kabank.mvc.factory.DatabaseFactory;
 
 public class CommonDAOImpl implements CommonDAO{
 	
@@ -12,10 +14,8 @@ public class CommonDAOImpl implements CommonDAO{
 	public String selectTableCount() {
 		String count = "";
 		try {
-			Class.forName(DBMS.ORACLE_DRIVER);
-			Connection conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(CommonSQL.countTableSQL("Member"));
+			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+						   .createStatement().executeQuery(DmlEnum.COUNT.toString() + TnameEnum.MEMBER);
 			while(rs.next()) {
 				count = rs.getString("count");
 			}

@@ -4,6 +4,7 @@
 <c:set var="ctx" value="<%=application.getContextPath()%>"/>
 <c:set var="css" value="${ctx}/resources/css"/>
 <c:set var="img" value="${ctx}/resources/img"/>
+<c:set var="view" value="${ctx}/WEB-INF/view"/>
 <!doctype html>
 <html lang="en">
 <head>

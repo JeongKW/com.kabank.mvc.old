@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kabank.mvc.constants.Path;
+import com.kabank.mvc.enums.PathEnum;
 import com.kabank.mvc.service.CommonService;
 import com.kabank.mvc.serviceImpl.CommonServiceImpl;
 
@@ -18,10 +18,11 @@ public class CommonController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CommonService service = new CommonServiceImpl();
-		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
-		String dest = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
+		String dir = request.getServletPath().split(PathEnum.SEPARATOR.getValue())[1];
+		String dest = request.getServletPath().split(PathEnum.SEPARATOR.getValue())[2].split(PathEnum.DOT.getValue())[0];
 		request.setAttribute("count", service.countTable());
-		request.getRequestDispatcher(Path.VIEW + dir + Path.SEPARATOR + dest + Path.EXTENSION).forward(request, response);
+		request.getRequestDispatcher(
+				PathEnum.VIEW.getValue() + dir + PathEnum.SEPARATOR.getValue() + dest + PathEnum.EXTENSION.getValue()).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

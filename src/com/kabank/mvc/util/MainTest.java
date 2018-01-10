@@ -1,15 +1,16 @@
 package com.kabank.mvc.util;
 
-import com.kabank.mvc.util.Enums.MembersColumn;
+import com.kabank.mvc.enums.DmlEnum;
+import com.kabank.mvc.enums.MemberEnum;
 
 public class MainTest {
 	public static void main(String[] args) {
-		MembersColumn[] values = Enums.MembersColumn.values();
-		System.out.println(values[1]);
-		for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
-			if(c.ordinal() == 1) {
-				System.out.println(c);
-			}
-		}
+		StringBuffer res = new StringBuffer(DmlEnum.SELECT.toString());
+		System.out.println("기본 버프 : " + res);
+		//"SELECT FROM "
+		//"01234567891011
+		res.insert(12, "Member");
+		res.insert(6, MemberEnum.PROPERTIES.toString());
+		System.out.println("바뀐 버프 : " + res);
 	}
 }

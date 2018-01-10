@@ -7,10 +7,11 @@ import com.kabank.mvc.daoImpl.MemberDAOImpl;
 import com.kabank.mvc.service.AdminService;
 
 public class AdminServiceImpl implements AdminService{
-	MemberDAO memberDao = null;
+	MemberDAO memberDao;
 	AttendDAO attendDao;
 	public AdminServiceImpl() {
-		attendDao = new AttendDAOImpl();
+		attendDao = AttendDAOImpl.getInstance();
+		memberDao = MemberDAOImpl.getInstance();
 	}
 	@Override
 	public void createTable(String tname) {

@@ -3,48 +3,27 @@ package com.kabank.mvc.daoImpl;
 import java.util.*;
 import java.sql.*;
 
-import com.kabank.mvc.constants.AdminSQL;
-import com.kabank.mvc.constants.CommonSQL;
-import com.kabank.mvc.constants.DBMS;
 import com.kabank.mvc.dao.MemberDAO;
 import com.kabank.mvc.domain.MemberBean;
-import com.kabank.mvc.util.Enums;
-import com.kabank.mvc.util.Enums.MembersColumn;
+import com.kabank.mvc.enums.DdlEnum;
+import com.kabank.mvc.enums.DmlEnum;
+import com.kabank.mvc.enums.MemberEnum;
+import com.kabank.mvc.enums.TnameEnum;
+import com.kabank.mvc.enums.Vendor;
+import com.kabank.mvc.factory.DatabaseFactory;
 
 public class MemberDAOImpl implements MemberDAO{
-	public static MemberDAO getInstance() {
-		return new MemberDAOImpl();
-	}
+	public static MemberDAO getInstance() { return new MemberDAOImpl(); }
 	
-	private MemberDAOImpl() {
-		try {
-			Class.forName(DBMS.ORACLE_DRIVER);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private MemberDAOImpl() { }
 	@Override
 	public List<MemberBean> selectMembers() {
 		List<MemberBean> list = new ArrayList<>();
-		List<String> tlist = new ArrayList<>();
 		try {
-			ResultSet rs = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW)
+			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE)
+					.getConnection()
 					.createStatement()
-					.executeQuery(CommonSQL.ALLTABSQL);
-			boolean exist = false;
-			while(rs.next()) {
-				String temp = rs.getString("tname");
-				tlist.add(temp);
-			}
-			for(int i = 0; i < tlist.size(); i++) {
-				if(tlist.get(i).equalsIgnoreCase("member")) {
-					exist = true;
-					break;
-				}
-			}
-			if(!exist) {
-				createMember();
-			}
+					.executeQuery(DmlEnum.ALLTABLE.toString());
 			while(rs.next()) {
 				MemberBean temp = new MemberBean();
 				temp.setId(rs.getString("id"));
@@ -65,25 +44,9 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public void createMember() {
-		List<String> tlist = new ArrayList<>();
 		try {
-			Connection conn = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW);
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(CommonSQL.ALLTABSQL);
-			boolean exist = false;
-			while(rs.next()) {
-				String temp = rs.getString("tname");
-				tlist.add(temp);
-			}
-			for(int i = 0; i < tlist.size(); i++) {
-				if(tlist.get(i).equalsIgnoreCase("member")) {
-					exist = true;
-					break;
-				}
-			}
-			if(!exist) {
-				stmt.executeUpdate(AdminSQL.CREATE_MEMBER);
-			}
+			DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+			.createStatement().executeUpdate(DdlEnum.CREATE_TABLE_MEMBER.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,31 +55,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void insertMember(MemberBean m) {
 		try {
-			String sql = "";
-			sql += Enums.DML.INSERT + " " + Enums.DML.INTO + " " + Enums.Table.MEMBER + "(";
-//			for(Enums.MembersColumn c : Enums.MembersColumn.values()) {
-//				if(c.ordinal() == Enums.MembersColumn.values().length - 1) {
-//					sql += c + ") ";
-//				} else {
-//					sql += c + ", ";
-//				}
-//			}
-			MembersColumn[] values = Enums.MembersColumn.values();
-			for(int i = 0; i < Enums.MembersColumn.values().length; i++) {
-				if(!(i==Enums.MembersColumn.values().length - 1)) {
-					sql += values[i] + ", ";
-				} else {
-					sql += values[i] + ") ";
-				}
-			}
-			sql += String.format(Enums.DML.VALUES + " ("
-					+ Enums.getBlanks(Enums.MembersColumn.values().length)
-					+ ")", 
-					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr());
-			System.out.println(sql);
-			DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW)
-			.createStatement()
-			.executeUpdate(sql);
+			StringBuffer sql = new StringBuffer(DmlEnum.INSERT.toString());
+			sql.insert(11, DmlEnum.INTOVAL_MEMBER);
+			sql.append(String.format("('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr()));
+			DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection().createStatement().executeUpdate(sql.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,11 +69,14 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberBean selectMemberById(MemberBean m) {
 		MemberBean res = null;
-		String sql = String.format("SELECT * FROM Member WHERE id like '%s' AND pw like '%s'", m.getId(), m.getPw());
 		try {
-			ResultSet rs = DriverManager.getConnection(DBMS.ORACLE_CONNECTION_URL, DBMS.ORACLE_USERNAME, DBMS.ORACLE_USERPW)
+			StringBuffer sql = new StringBuffer(DmlEnum.SELECT.toString());
+			sql.insert(12, TnameEnum.MEMBER);
+			sql.insert(6, MemberEnum.PROPERTIES.toString());
+			sql.append(String.format(" WHERE id like '%s' AND pw like '%s'", m.getId(), m.getPw()));
+			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
 			.createStatement()
-			.executeQuery(sql);
+			.executeQuery(sql.toString());
 			while(rs.next()) {
 				res = new MemberBean();
 				res.setId(rs.getString("id"));
@@ -147,4 +93,5 @@ public class MemberDAOImpl implements MemberDAO{
 		}
 		return res;
 	}
+
 }

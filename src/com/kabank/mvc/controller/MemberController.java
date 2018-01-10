@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kabank.mvc.constants.Path;
 import com.kabank.mvc.domain.MemberBean;
+import com.kabank.mvc.enums.PathEnum;
 import com.kabank.mvc.service.MemberService;
 import com.kabank.mvc.serviceImpl.MemberServiceImpl;
 
@@ -20,8 +20,8 @@ public class MemberController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MemberService service = MemberServiceImpl.getInstance();
 		MemberBean param = null;
-		String dir = request.getServletPath().split(Path.SEPARATOR)[1];
-		String action = request.getServletPath().split(Path.SEPARATOR)[2].split(Path.DOT)[0];
+		String dir = request.getServletPath().split(PathEnum.SEPARATOR.getValue())[1];
+		String action = request.getServletPath().split(PathEnum.SEPARATOR.getValue())[2].split(PathEnum.DOT.getValue())[0];
 		String dest = "";
 		HttpSession session = request.getSession();
 		switch(action) {
@@ -58,7 +58,8 @@ public class MemberController extends HttpServlet {
 				dest = action;
 				break;
 		}
-		request.getRequestDispatcher(Path.VIEW + dir + Path.SEPARATOR + dest + Path.EXTENSION).forward(request, response);
+		request.getRequestDispatcher(
+				PathEnum.VIEW.getValue() + dir + PathEnum.SEPARATOR.getValue() + dest + PathEnum.EXTENSION.getValue()).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
