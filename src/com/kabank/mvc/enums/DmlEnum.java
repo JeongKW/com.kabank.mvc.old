@@ -22,13 +22,20 @@ public enum DmlEnum {
 	INSERT{
 		@Override
 		public String toString() {
-			return "INSERT INTO VALUES";
+			return "INSERT INTO VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
 		}
 	},
 	INTOVAL_MEMBER{
 		@Override
 		public String toString() {
 			return " MEMBER(" + MemberEnum.PROPERTIES.toString() + ")";
+		}
+	},
+	MEMBER_LOGIN{
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return " WHERE id like '%s' AND pw like '%s'";
 		}
 	}
 }

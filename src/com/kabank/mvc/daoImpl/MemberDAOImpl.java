@@ -57,9 +57,9 @@ public class MemberDAOImpl implements MemberDAO{
 		try {
 			StringBuffer sql = new StringBuffer(DmlEnum.INSERT.toString());
 			sql.insert(11, DmlEnum.INTOVAL_MEMBER);
-			sql.append(String.format("('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+			DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection().createStatement()
+			.executeUpdate(String.format(sql.toString(),
 					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr()));
-			DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection().createStatement().executeUpdate(sql.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,10 +73,9 @@ public class MemberDAOImpl implements MemberDAO{
 			StringBuffer sql = new StringBuffer(DmlEnum.SELECT.toString());
 			sql.insert(12, TnameEnum.MEMBER);
 			sql.insert(6, MemberEnum.PROPERTIES.toString());
-			sql.append(String.format(" WHERE id like '%s' AND pw like '%s'", m.getId(), m.getPw()));
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
 			.createStatement()
-			.executeQuery(sql.toString());
+			.executeQuery(String.format(sql.toString(), m.getId(), m.getPw()));
 			while(rs.next()) {
 				res = new MemberBean();
 				res.setId(rs.getString(MemberEnum.ID.name()));

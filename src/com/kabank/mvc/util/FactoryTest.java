@@ -8,8 +8,7 @@ public class FactoryTest {
 		System.out.println(OracleEnum.ORACLE_CONNECTION_URL.getValue());
 		StringBuffer sql = new StringBuffer(DmlEnum.INSERT.toString());
 //		"INSERT INTO VALUES"
-//		"123456789012345678
-		
+//		"123456789012345678"
 		System.out.println(sql.toString());
 	}
 }
