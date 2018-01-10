@@ -25,16 +25,16 @@ public class MemberDAOImpl implements MemberDAO{
 					.createStatement()
 					.executeQuery(DmlEnum.ALLTABLE.toString());
 			while(rs.next()) {
-				MemberBean temp = new MemberBean();
-				temp.setId(rs.getString("id"));
-				temp.setPw(rs.getString("pw"));
-				temp.setName(rs.getString("name"));
-				temp.setSsn(rs.getString("ssn"));
-				temp.setPhone(rs.getString("phone"));
-				temp.setEmail(rs.getString("email"));
-				temp.setProfile(rs.getString("profile"));
-				temp.setAddr(rs.getString("addr"));
-				list.add(temp);
+				MemberBean res = new MemberBean();
+				res.setId(rs.getString(MemberEnum.ID.name()));
+				res.setPw(rs.getString(MemberEnum.PW.name()));
+				res.setName(rs.getString(MemberEnum.NAME.name()));
+				res.setSsn(rs.getString(MemberEnum.SSN.name()));
+				res.setPhone(rs.getString(MemberEnum.PHONE.name()));
+				res.setEmail(rs.getString(MemberEnum.EMAIL.name()));
+				res.setProfile(rs.getString(MemberEnum.PROFILE.name()));
+				res.setAddr(rs.getString(MemberEnum.ADDR.name()));
+				list.add(res);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,14 +79,14 @@ public class MemberDAOImpl implements MemberDAO{
 			.executeQuery(sql.toString());
 			while(rs.next()) {
 				res = new MemberBean();
-				res.setId(rs.getString("id"));
-				res.setPw(rs.getString("pw"));
-				res.setName(rs.getString("name"));
-				res.setSsn(rs.getString("ssn"));
-				res.setPhone(rs.getString("phone"));
-				res.setEmail(rs.getString("email"));
-				res.setProfile(rs.getString("profile"));
-				res.setAddr(rs.getString("addr"));
+				res.setId(rs.getString(MemberEnum.ID.name()));
+				res.setPw(rs.getString(MemberEnum.PW.name()));
+				res.setName(rs.getString(MemberEnum.NAME.name()));
+				res.setSsn(rs.getString(MemberEnum.SSN.name()));
+				res.setPhone(rs.getString(MemberEnum.PHONE.name()));
+				res.setEmail(rs.getString(MemberEnum.EMAIL.name()));
+				res.setProfile(rs.getString(MemberEnum.PROFILE.name()));
+				res.setAddr(rs.getString(MemberEnum.ADDR.name()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
