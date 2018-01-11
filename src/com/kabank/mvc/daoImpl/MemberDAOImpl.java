@@ -11,6 +11,7 @@ import com.kabank.mvc.enums.MemberEnum;
 import com.kabank.mvc.enums.TnameEnum;
 import com.kabank.mvc.enums.Vendor;
 import com.kabank.mvc.factory.DatabaseFactory;
+import com.kabank.mvc.factory.SqlFactory;
 
 public class MemberDAOImpl implements MemberDAO{
 	public static MemberDAO getInstance() { return new MemberDAOImpl(); }
@@ -55,10 +56,8 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void insertMember(MemberBean m) {
 		try {
-			StringBuffer sql = new StringBuffer(DmlEnum.INSERT.toString());
-			sql.insert(11, DmlEnum.INTOVAL_MEMBER);
 			DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection().createStatement()
-			.executeUpdate(String.format(sql.toString(),
+			.executeUpdate(String.format(SqlFactory.create(11, DmlEnum.INSERT.toString(), DmlEnum.INTOVAL_MEMBER.toString()),
 					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr()));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,13 +69,9 @@ public class MemberDAOImpl implements MemberDAO{
 	public MemberBean selectMemberById(MemberBean m) {
 		MemberBean res = null;
 		try {
-			StringBuffer sql = new StringBuffer(DmlEnum.SELECT.toString());
-			sql.insert(12, DmlEnum.MEMBER_LOGIN);
-			sql.insert(12, TnameEnum.MEMBER);
-			sql.insert(6, MemberEnum.PROPERTIES.toString());
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
 			.createStatement()
-			.executeQuery(String.format(sql.toString(), m.getId(), m.getPw()));
+			.executeQuery(String.format(DmlEnum.SELECT.toString() + TnameEnum.MEMBER.name() + DmlEnum.MEMBER_LOGIN.toString(), m.getId(), m.getPw()));
 			while(rs.next()) {
 				res = new MemberBean();
 				res.setId(rs.getString(MemberEnum.ID.name()));

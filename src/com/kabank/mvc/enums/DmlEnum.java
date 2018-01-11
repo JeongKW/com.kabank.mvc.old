@@ -16,7 +16,7 @@ public enum DmlEnum {
 	SELECT{
 		@Override
 		public String toString() {
-			return "SELECT FROM ";
+			return "SELECT * FROM ";
 		}
 	},
 	INSERT{
@@ -34,7 +34,6 @@ public enum DmlEnum {
 	MEMBER_LOGIN{
 		@Override
 		public String toString() {
-			// TODO Auto-generated method stub
 			return " WHERE id like '%s' AND pw like '%s'";
 		}
 	}

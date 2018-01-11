@@ -8,21 +8,16 @@ import com.kabank.mvc.domain.MemberBean;
 import com.kabank.mvc.service.MemberService;
 
 public class MemberServiceImpl implements MemberService{
-	MemberDAO dao;
-	public static MemberServiceImpl getInstance() {
-		return new MemberServiceImpl();
-	}
+	public static MemberServiceImpl getInstance() { return new MemberServiceImpl(); }
 
-	private MemberServiceImpl() {
-		dao = MemberDAOImpl.getInstance();
-	}
+	private MemberServiceImpl() { }
 	@Override
 	public MemberBean findMemberById(MemberBean m) {
-		return dao.selectMemberById(m);
+		return MemberDAOImpl.getInstance().selectMemberById(m);
 	}
 	@Override
 	public void join(MemberBean m) {
-		List<MemberBean> list = dao.selectMembers();
+		List<MemberBean> list = MemberDAOImpl.getInstance().selectMembers();
 		boolean exist = false;
 		for(int i=0; i < list.size(); i++) {
 			if(m.getId().equals(list.get(i).getId())) {
@@ -31,7 +26,7 @@ public class MemberServiceImpl implements MemberService{
 			}
 		}
 		if(!exist) {
-			dao.insertMember(m);
+			MemberDAOImpl.getInstance().insertMember(m);
 		}
 	}
 	

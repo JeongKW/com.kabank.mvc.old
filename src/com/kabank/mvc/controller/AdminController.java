@@ -12,7 +12,7 @@ import com.kabank.mvc.enums.PathEnum;
 import com.kabank.mvc.service.AdminService;
 import com.kabank.mvc.serviceImpl.AdminServiceImpl;
 
-@WebServlet({"/admin/main.do", "/admin/create_table.do"})
+@WebServlet({"/admin.do"})
 public class AdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    

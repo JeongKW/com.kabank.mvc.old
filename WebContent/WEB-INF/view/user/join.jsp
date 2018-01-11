@@ -9,7 +9,7 @@
 		</header>
 		<section>
 			<article>
-				<form id="member_form" action="${pageContext.request.contextPath}/user/confirm.do">
+				<form id="member_form" action="${pageContext.request.contextPath}/user.do?cmd=add&page=login">
 					<table>
 						<tr>
 							<td id="memtype_td">ID </td>
