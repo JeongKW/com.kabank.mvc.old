@@ -71,6 +71,7 @@ public class MemberDAOImpl implements MemberDAO{
 		MemberBean res = null;
 		try {
 			StringBuffer sql = new StringBuffer(DmlEnum.SELECT.toString());
+			sql.insert(12, DmlEnum.MEMBER_LOGIN);
 			sql.insert(12, TnameEnum.MEMBER);
 			sql.insert(6, MemberEnum.PROPERTIES.toString());
 			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
