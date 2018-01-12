@@ -22,5 +22,7 @@
 	<link rel="stylesheet" href="${css}/admin.css" />
 	<link rel="stylesheet" href="${css}/adminmember.css" />
 	<link rel="stylesheet" href="${css}/addmember.css" />
+	<link rel="stylesheet" href="${css}/changepw.css" />
+	
 </head>
 <body>

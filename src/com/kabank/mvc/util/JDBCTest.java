@@ -8,7 +8,7 @@ import com.kabank.mvc.factory.DatabaseFactory;
 public class JDBCTest {
 	public static void main(String[] args) {
 		try {
-			ResultSet rs = DatabaseFactory.createDatabase(Vendor.ORACLE).getConnection()
+			ResultSet rs = DatabaseFactory.create(Vendor.ORACLE).getConnection()
 										  .createStatement().executeQuery(DmlEnum.ALLTABLE.toString());
 			String count = "";
 			while(rs.next()) {

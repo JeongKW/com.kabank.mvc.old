@@ -10,6 +10,6 @@ import com.kabank.mvc.command.InitCommand;
 
 public class DispatcherServlet {
 	public static void send(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(InitCommand.cmd.excute()).forward(request, response);
+		request.getRequestDispatcher(InitCommand.cmd.getView()).forward(request, response);
 	}
 }

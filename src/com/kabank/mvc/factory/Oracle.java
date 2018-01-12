@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 import com.kabank.mvc.enums.OracleEnum;
 
-public class Oracle implements Database{
+public class Oracle implements IDatabase{
 	private Connection conn;
 	private String driver, url, id, pw;
 	public Oracle() {

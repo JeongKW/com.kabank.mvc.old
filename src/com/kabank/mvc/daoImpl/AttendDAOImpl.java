@@ -12,7 +12,7 @@ public class AttendDAOImpl implements AttendDAO{
 	@Override
 	public void createAttend() {
 		try {
-			DatabaseFactory.createDatabase(Vendor.ORACLE)
+			DatabaseFactory.create(Vendor.ORACLE)
 						   .getConnection().createStatement()
 						   .executeUpdate(DdlEnum.CREATE_TABLE_ATTEND.toString());
 		} catch (Exception e) {

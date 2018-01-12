@@ -52,7 +52,7 @@
 		</table>
 	</section>
 	<section>
-		<form id="bit_main_form" action="result.jsp">
+		<form id="bit_main_form" action="${ctx}/user.do">
 		<table id="bitmain_table">
 			<tr>
 				<th></th>
@@ -105,15 +105,21 @@
 			</tr>
 			<tr>
 				<td colspan="6">
-					<button id="attend_result">확 인</button>
+					<button id="attend_pwch">비밀번호 변경</button>
+					<button id="attend_result">확 인</button>	
 				</td>
 			</tr>
-		</table>
+			</table>
+			<input type="hidden" name="cmd" value="move"/>
+			<input type="hidden" name="page" value="changepw"/>
+			<input type="hidden" name="dir" value="user"/>
 		</form>
 	</section>
 </div>
 <%@ include file="../common/footer.jsp" %>
 <script>
-	
+	document.querySelector('#attend_pwch').addEventListener("click", function(){
+		document.querySelector('#pwch_form').submit();
+	}, false);
 </script>
 </html>

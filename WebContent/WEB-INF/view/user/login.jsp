@@ -16,7 +16,7 @@
 								</tr>
 								<tr>
 									<td>
-									<input id="index_input_pw" type="password" placeholder="PASSWORD" name="pw" value="rkskekfk12" />
+									<input id="index_input_pw" type="password" placeholder="PASSWORD" name="pw" />
 									<input type="hidden" name="cmd" value="login"/>
 									<input type="hidden" name="page" value="main"/>
 									<input type="hidden" name="dir" value="bitcamp"/>
@@ -36,7 +36,7 @@
 <%@ include file="../common/footer.jsp" %>
 <script>
 	document.querySelector('#go_join_link').addEventListener('click', function () {
-		location.href = "${ctx}/user.do?page=join";
+		location.href = "${ctx}/user.do";
 	}, false);
 	
 	document.querySelector('#go_jdbc_link').addEventListener('click', function () {

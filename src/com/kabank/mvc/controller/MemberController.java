@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kabank.mvc.command.ChangeCommand;
 import com.kabank.mvc.command.InitCommand;
+import com.kabank.mvc.command.LoginCommand;
+import com.kabank.mvc.command.MoveCommand;
 import com.kabank.mvc.domain.MemberBean;
 import com.kabank.mvc.serviceImpl.MemberServiceImpl;
 import com.kabank.mvc.util.DispatcherServlet;
@@ -18,36 +21,68 @@ import com.kabank.mvc.util.DispatcherServlet;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberBean member = null;
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		InitCommand.init(request, response);
+		InitCommand init = new InitCommand(request);
+		init.excute();
 		switch (InitCommand.cmd.getAction()) {
 			case MOVE:
+				System.out.println("----Member-C : Move In----");
+				new MoveCommand(request).excute();
+				System.out.println("DEST IS " + InitCommand.cmd.getView());
+				System.out.println("----Member-C : Move Out----");
 				DispatcherServlet.send(request, response); 
 				break;
-			case SEARCH:
-				member = new MemberBean();
-				member.setId(request.getParameter("id"));
-				member.setPw(request.getParameter("pw"));
-				MemberBean result = MemberServiceImpl.getInstance().findMemberById(member);
-				if(result == null) {
-					InitCommand.cmd.setDir("user");
-					InitCommand.cmd.setPage("login");
-					InitCommand.cmd.excute();
+			case ADD:
+				System.out.println("----Member-C : Add In----");
+				
+				System.out.println("----Member-C : Add Out----");
+				DispatcherServlet.send(request, response);
+				break;
+			case LOGIN:
+				System.out.println("----Member-C : Login In----");
+				login(request, session);
+				DispatcherServlet.send(request, response);
+				System.out.println("----Member-C : Login Out----");
+				break;
+			case JOIN:
+				
+				break;
+			case CHANGE:
+				System.out.println("----Member-C : Change In----");
+				new ChangeCommand(request).excute();
+				String[] password = InitCommand.cmd.getData().split("/");
+				if(password[1].equals(password[2])) {
+					MemberServiceImpl.getInstance().update();
+					InitCommand.cmd.setDir("bitcamp");
+					InitCommand.cmd.setPage("main");
+					MemberBean m = (MemberBean) session.getAttribute("user");
+					m.setPw(password[1]);
+					session.setAttribute("user", m);
 				} else {
-					InitCommand.cmd.setDir(request.getParameter("dir"));
-					InitCommand.cmd.setPage(request.getParameter("page"));
-					session.setAttribute("user", result);
+					InitCommand.cmd.setDir("user");
+					InitCommand.cmd.setPage("changepw");
 				}
+				new MoveCommand(request).excute();
+				System.out.println("----Member-C : Change Out----");
 				DispatcherServlet.send(request, response);
 				break;
 			default: break;
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	private void login(HttpServletRequest request, HttpSession session) {
+		new LoginCommand(request).excute();
+		MemberBean member = MemberServiceImpl.getInstance().login();
+		if(MemberServiceImpl.getInstance().login() == null) {
+			InitCommand.cmd.setDir("user");
+			InitCommand.cmd.setPage("login");
+		} else {
+			InitCommand.cmd.setDir("bitcamp");
+			InitCommand.cmd.setPage("main");
+			session.setAttribute("user", member);
+		}
+		new MoveCommand(request).excute();
 	}
 	
 }

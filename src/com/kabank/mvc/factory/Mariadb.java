@@ -3,7 +3,7 @@ package com.kabank.mvc.factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Mariadb implements Database{
+public class Mariadb implements IDatabase{
 	private Connection conn;
 	private String driver, url, id, pw;
 	

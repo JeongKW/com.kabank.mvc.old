@@ -3,8 +3,8 @@ package com.kabank.mvc.factory;
 import com.kabank.mvc.enums.Vendor;
 
 public class DatabaseFactory {
-	public static Database createDatabase(Vendor vendor) {
-		Database db = null;
+	public static IDatabase create(Vendor vendor) {
+		IDatabase db = null;
 		switch (vendor) {
 		case ORACLE:
 			db = new Oracle();
