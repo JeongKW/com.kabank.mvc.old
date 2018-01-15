@@ -5,7 +5,7 @@ public enum MemberEnum {
 	PROPERTIES{
 		@Override
 		public String toString() {
-			return " " + ID + ", " + PW + ", " + NAME + ", " + SSN + ", " + PHONE + ", " + EMAIL + ", " + PROFILE + ", " + ADDR;
+			return ID + ", " + PW + ", " + NAME + ", " + SSN + ", " + PHONE + ", " + EMAIL + ", " + PROFILE + ", " + ADDR;
 		}
 	},
 	LOGIN{
@@ -17,7 +17,7 @@ public enum MemberEnum {
 	UPDATE{
 		@Override
 		public String toString() {
-			return "UPDATE Member SET pw='$' WHERE pw LIKE '@'";
+			return "UPDATE Member SET pw='$' WHERE id LIKE '@'";
 		}
 	}
 }

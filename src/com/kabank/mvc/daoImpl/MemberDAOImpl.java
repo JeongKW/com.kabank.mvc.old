@@ -13,6 +13,7 @@ import com.kabank.mvc.enums.TnameEnum;
 import com.kabank.mvc.enums.Vendor;
 import com.kabank.mvc.factory.DatabaseFactory;
 import com.kabank.mvc.factory.SqlFactory;
+import com.kabank.mvc.factory.SqlReplaceFactory;
 
 public class MemberDAOImpl implements MemberDAO{
 	public static MemberDAO getInstance() { return new MemberDAOImpl(); }
@@ -58,7 +59,7 @@ public class MemberDAOImpl implements MemberDAO{
 	public void insertMember(MemberBean m) {
 		try {
 			DatabaseFactory.create(Vendor.ORACLE).getConnection().createStatement()
-			.executeUpdate(String.format(SqlFactory.create(11, DmlEnum.INSERT.toString(), DmlEnum.INTOVAL_MEMBER.toString()),
+			.executeUpdate(String.format(SqlFactory.create(12, DmlEnum.INSERT.toString(), DmlEnum.INTOVAL_MEMBER.toString()),
 					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr()));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +73,7 @@ public class MemberDAOImpl implements MemberDAO{
 		try {
 			ResultSet rs = DatabaseFactory.create(Vendor.ORACLE).getConnection()
 			.createStatement()
-			.executeQuery(String.format(DmlEnum.SELECT.toString() + TnameEnum.MEMBER.name() + DmlEnum.MEMBER_LOGIN.toString(), m.getId(), m.getPw()));
+			.executeQuery(String.format(SqlFactory.create(7, DmlEnum.SELECT.toString() + TnameEnum.MEMBER.name(), DmlEnum.MEMBER_LOGIN.toString()), m.getId(), m.getPw()));
 			while(rs.next()) {
 				res = new MemberBean();
 				res.setId(rs.getString(MemberEnum.ID.name()));
@@ -125,14 +126,9 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void update() {
 		System.out.println("----Member-D : Update In----");
-		StringBuffer sql = new StringBuffer(MemberEnum.UPDATE.toString());
-		String[] arr = InitCommand.cmd.getData().split("/");
-		System.out.println("현재 패스워드 : " + arr[0]);
-		System.out.println("변경할 패스워드 : " + arr[1]);
-		sql.replace(sql.indexOf("@"), sql.indexOf("@")+1, arr[0]);
-		sql.replace(sql.indexOf("$"), sql.indexOf("$")+1, arr[1]);
 		try {
-			DatabaseFactory.create(Vendor.ORACLE).getConnection().createStatement().executeUpdate(sql.toString());
+			DatabaseFactory.create(Vendor.ORACLE).getConnection()
+			.createStatement().executeUpdate(InitCommand.cmd.getSql());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

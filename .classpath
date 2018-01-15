@@ -17,5 +17,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/1027/Documents/aa/jstl.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/1027/Documents/aa/standard.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib/ojdbc6.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/1027/Documents/aa/lombok.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

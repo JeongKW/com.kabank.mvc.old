@@ -31,7 +31,7 @@ public class MemberController extends HttpServlet {
 				new MoveCommand(request).excute();
 				System.out.println("DEST IS " + InitCommand.cmd.getView());
 				System.out.println("----Member-C : Move Out----");
-				DispatcherServlet.send(request, response); 
+				DispatcherServlet.send(request, response);
 				break;
 			case ADD:
 				System.out.println("----Member-C : Add In----");
@@ -50,20 +50,7 @@ public class MemberController extends HttpServlet {
 				break;
 			case CHANGE:
 				System.out.println("----Member-C : Change In----");
-				new ChangeCommand(request).excute();
-				String[] password = InitCommand.cmd.getData().split("/");
-				if(password[1].equals(password[2])) {
-					MemberServiceImpl.getInstance().update();
-					InitCommand.cmd.setDir("bitcamp");
-					InitCommand.cmd.setPage("main");
-					MemberBean m = (MemberBean) session.getAttribute("user");
-					m.setPw(password[1]);
-					session.setAttribute("user", m);
-				} else {
-					InitCommand.cmd.setDir("user");
-					InitCommand.cmd.setPage("changepw");
-				}
-				new MoveCommand(request).excute();
+				update(request, session);
 				System.out.println("----Member-C : Change Out----");
 				DispatcherServlet.send(request, response);
 				break;
@@ -71,10 +58,27 @@ public class MemberController extends HttpServlet {
 		}
 	}
 
+	private void update(HttpServletRequest request, HttpSession session) {
+		new ChangeCommand(request, session).excute();
+		String[] changePass = InitCommand.cmd.getData().split("/");
+		if(changePass[1].equals(changePass[2])) {
+			MemberServiceImpl.getInstance().update();
+			MemberBean m = (MemberBean) session.getAttribute("user");
+			m.setPw(changePass[1]);
+			session.setAttribute("user", m);
+			InitCommand.cmd.setDir("bitcamp");
+			InitCommand.cmd.setPage("main");
+		} else {
+			InitCommand.cmd.setDir("user");
+			InitCommand.cmd.setPage("changepw");
+		}
+		new MoveCommand(request).excute();
+	}
+
 	private void login(HttpServletRequest request, HttpSession session) {
 		new LoginCommand(request).excute();
 		MemberBean member = MemberServiceImpl.getInstance().login();
-		if(MemberServiceImpl.getInstance().login() == null) {
+		if(member == null) {
 			InitCommand.cmd.setDir("user");
 			InitCommand.cmd.setPage("login");
 		} else {
@@ -82,6 +86,7 @@ public class MemberController extends HttpServlet {
 			InitCommand.cmd.setPage("main");
 			session.setAttribute("user", member);
 		}
+		System.out.println(member);
 		new MoveCommand(request).excute();
 	}
 	

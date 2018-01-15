@@ -1,6 +1,6 @@
 package com.kabank.mvc.serviceImpl;
 
-import java.util.*;
+import java.util.List;
 
 import com.kabank.mvc.daoImpl.MemberDAOImpl;
 import com.kabank.mvc.domain.MemberBean;
