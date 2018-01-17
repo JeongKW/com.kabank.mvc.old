@@ -19,7 +19,7 @@ public enum DmlEnum {
 			return "SELECT  FROM ";
 		}
 	},
-	INSERT{
+	INSERT_MEMBER{
 		@Override
 		public String toString() {
 			return "INSERT INTO  VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
@@ -35,6 +35,18 @@ public enum DmlEnum {
 		@Override
 		public String toString() {
 			return " WHERE id like '%s' AND pw like '%s'";
+		}
+	},
+	DELETE_MEMBER{
+		@Override
+		public String toString() {
+			return "DELETE FROM MEMBER WHERE id = '@'";
+		}
+	},
+	INSERT_BANK{
+		@Override
+		public String toString() {
+			return "INSERT INTO BANK(" + BankEnum.PROPERTIES.toString() + ") VALUES('%s', '%s', '%s', '%s')";
 		}
 	}
 }

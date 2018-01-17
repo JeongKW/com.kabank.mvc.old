@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class AccountBean {
-	private String accountNum, money;
+	private String customNum, accountNum, money;
 
 }

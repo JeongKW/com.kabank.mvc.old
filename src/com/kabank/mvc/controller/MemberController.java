@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kabank.mvc.command.ChangeCommand;
+import com.kabank.mvc.command.DeleteCommand;
 import com.kabank.mvc.command.InitCommand;
+import com.kabank.mvc.command.InsertCommand;
 import com.kabank.mvc.command.LoginCommand;
 import com.kabank.mvc.command.MoveCommand;
 import com.kabank.mvc.domain.MemberBean;
@@ -35,7 +37,6 @@ public class MemberController extends HttpServlet {
 				break;
 			case ADD:
 				System.out.println("----Member-C : Add In----");
-				
 				System.out.println("----Member-C : Add Out----");
 				DispatcherServlet.send(request, response);
 				break;
@@ -46,7 +47,19 @@ public class MemberController extends HttpServlet {
 				System.out.println("----Member-C : Login Out----");
 				break;
 			case JOIN:
-				
+				System.out.println("----Member-C : Add In----");
+				new InsertCommand(request).excute();
+				if(InitCommand.cmd.getData().split("/")[1].equals(InitCommand.cmd.getData().split("#")[1])) {
+					MemberServiceImpl.getInstance().insertMember();
+					InitCommand.cmd.setDir("user");
+					InitCommand.cmd.setPage("login");
+				} else {
+					InitCommand.cmd.setDir("user");
+					InitCommand.cmd.setPage("join");
+				}
+				new MoveCommand(request).excute();
+				System.out.println("----Member-C : Add Out----");
+				DispatcherServlet.send(request, response);
 				break;
 			case CHANGE:
 				System.out.println("----Member-C : Change In----");
@@ -54,20 +67,37 @@ public class MemberController extends HttpServlet {
 				System.out.println("----Member-C : Change Out----");
 				DispatcherServlet.send(request, response);
 				break;
+			case DELETE:
+				System.out.println("----Member-C : Delete In----");
+				new DeleteCommand(request).excute();
+				String[] deleteInfo = InitCommand.cmd.getData().split("/");
+				if(deleteInfo[0].equals(deleteInfo[1])) {
+					MemberServiceImpl.getInstance().deleteMember();
+					InitCommand.cmd.setDir("user");
+					InitCommand.cmd.setPage("login");
+					session.invalidate();
+				} else {
+					InitCommand.cmd.setDir("user");
+					InitCommand.cmd.setPage("deletemember");
+				}
+				new MoveCommand(request).excute();
+				System.out.println("----Member-C : Delete Out----");
+				DispatcherServlet.send(request, response);
+				break;
 			default: break;
 		}
 	}
 
 	private void update(HttpServletRequest request, HttpSession session) {
-		new ChangeCommand(request, session).excute();
-		String[] changePass = InitCommand.cmd.getData().split("/");
-		if(changePass[1].equals(changePass[2])) {
-			MemberServiceImpl.getInstance().update();
+		new ChangeCommand(request).excute();
+		String[] info = InitCommand.cmd.getData().split("/");
+		if(info[0].equals(info[1])) {
+			MemberServiceImpl.getInstance().updateMember();
 			MemberBean m = (MemberBean) session.getAttribute("user");
-			m.setPw(changePass[1]);
+			m.setPw(info[0]);
 			session.setAttribute("user", m);
-			InitCommand.cmd.setDir("bitcamp");
-			InitCommand.cmd.setPage("main");
+			InitCommand.cmd.setDir("user");
+			InitCommand.cmd.setPage("mypage");
 		} else {
 			InitCommand.cmd.setDir("user");
 			InitCommand.cmd.setPage("changepw");
@@ -82,12 +112,10 @@ public class MemberController extends HttpServlet {
 			InitCommand.cmd.setDir("user");
 			InitCommand.cmd.setPage("login");
 		} else {
-			InitCommand.cmd.setDir("bitcamp");
-			InitCommand.cmd.setPage("main");
+			InitCommand.cmd.setDir("user");
+			InitCommand.cmd.setPage("mypage");
 			session.setAttribute("user", member);
 		}
-		System.out.println(member);
 		new MoveCommand(request).excute();
 	}
-	
 }

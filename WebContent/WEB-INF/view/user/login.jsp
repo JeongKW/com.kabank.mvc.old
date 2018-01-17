@@ -8,18 +8,17 @@
 			<table id="index_table">
 				<tr>
 					<td colspan="5">
-						<form id="login_form" action="${ctx}/user.do">
+						<form id="login_form" action="${ctx}/user.do?cmd=login">
 							<table id="index_login_box">
 								<tr>
-									<td><input id="index_input_id" type="text" placeholder="ID" name="id" value="jk_pon" /></td>
+									<td><input id="index_input_id" type="text" placeholder="ID" name="id" /></td>
 									<td rowspan="2"><button id="index_login_btn">로그인</button></td>
 								</tr>
 								<tr>
 									<td>
 									<input id="index_input_pw" type="password" placeholder="PASSWORD" name="pw" />
 									<input type="hidden" name="cmd" value="login"/>
-									<input type="hidden" name="page" value="main"/>
-									<input type="hidden" name="dir" value="bitcamp"/>
+									<input type="hidden" name="page" value="mypage"/>
 									</td>
 								</tr>
 							</table>
@@ -36,7 +35,7 @@
 <%@ include file="../common/footer.jsp" %>
 <script>
 	document.querySelector('#go_join_link').addEventListener('click', function () {
-		location.href = "${ctx}/user.do";
+		location.href = "${ctx}/user.do?cmd=move&page=join&dir=user";
 	}, false);
 	
 	document.querySelector('#go_jdbc_link').addEventListener('click', function () {
@@ -46,7 +45,7 @@
 	document.querySelector('#go_admin_link').addEventListener('click', function () {
 		var adminOk = confirm('관리자?');
 		if(adminOk){
-			location.href = "${ctx}/admin.do";
+			location.href = "${ctx}/admin.do?cmd=main";
 		} else {
 			alert('관리자만이 접근가능 합니다.');
 		}

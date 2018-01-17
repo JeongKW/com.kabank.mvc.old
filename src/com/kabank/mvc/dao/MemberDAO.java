@@ -7,8 +7,9 @@ import com.kabank.mvc.domain.MemberBean;
 public interface MemberDAO {
 	public List<MemberBean> selectMembers();
 	public void createMember();
-	public void insertMember(MemberBean m);
+	public void insertMember();
 	public MemberBean selectMemberById(MemberBean m);
 	public MemberBean login();
-	public void update();
+	public void deleteMember();
+	public void updateMember();
 }

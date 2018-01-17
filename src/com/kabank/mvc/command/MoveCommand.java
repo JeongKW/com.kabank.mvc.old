@@ -8,7 +8,6 @@ import com.kabank.mvc.enums.Action;
 import com.kabank.mvc.util.ParamsIterator;
 
 public class MoveCommand implements IOrder{
-	
 	Map<?, ?> map;
 	String servletPath;
 	public MoveCommand(HttpServletRequest request) {

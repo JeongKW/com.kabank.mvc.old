@@ -1,6 +1,7 @@
 package com.kabank.mvc.command;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,12 +20,22 @@ public class TestCommand implements IOrder{
 	}
 	@Override
 	public void excute() {
-		String c_pw = String.valueOf(map.get("c_pw"));
-		String m_pw = String.valueOf(map.get("m_pw"));
-		String m_pwch = String.valueOf(map.get("m_pwch"));
+		@SuppressWarnings("unchecked")
+		Set<String> keys = (Set<String>) map.keySet();
+		String data = "";
+		String column = "";
+		String indexNum = "";
+		for(String s : keys) {
+			if(!(map.get(s).equals(""))) {
+				data += map.get(s) + "/";
+				column += s + "/";
+			}
+		}
+		data = data.substring(0, data.length()-1);
+		column = column.substring(0, column.length()-1);
+		String[] columns = InitCommand.cmd.getColumn().split("/");
+		String[] datas = InitCommand.cmd.getData().split("/");
 		
-		InitCommand.cmd.setColumn("c_pw/m_pw");
-		InitCommand.cmd.setData(c_pw+"/"+m_pw+"/"+m_pwch+"/"+member.getId());
-		InitCommand.cmd.setSql(SqlReplaceFactory.create(MemberEnum.UPDATE.toString(), InitCommand.cmd.getData().split("/")));
+		
 	}
 }

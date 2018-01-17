@@ -7,9 +7,9 @@
 				<h2>당신의 소중한 정보를 입력해주세요</h2>
 			</hgroup>
 		</header>
-		<section>
+		<section id="input_section">
 			<article>
-				<form id="member_form" action="${pageContext.request.contextPath}/user.do?cmd=add&page=login">
+				<form id="member_form" action="${ctx}/user.do">
 					<table>
 						<tr>
 							<td id="memtype_td">ID </td>
@@ -55,6 +55,7 @@
 							<td id="memtype_td">핸드폰번호</td>
 							<td>
 								<select name="phone_head">
+									<option value="">선택하세요</option>
 									<option value="010">010</option>
 									<option value="011">011</option>
 									<option value="016">016</option>
@@ -68,10 +69,11 @@
 							<td>
 								<input style="width: 100px" type="text" name="email" />&nbsp;@
 								<select name="email_dot" id="">
-									<option value="naver.com">naver.com</option>
-									<option value="nate.com">nate.com</option>
-									<option value="hanmail.net">hanmail.net</option>
-									<option value="gmail.com">gmail.com</option>
+									<option value="">선택하세요</option>
+									<option value="@naver.com">naver.com</option>
+									<option value="@nate.com">nate.com</option>
+									<option value="@hanmail.net">hanmail.net</option>
+									<option value="@gmail.com">gmail.com</option>
 								</select>
 							</td>
 						</tr>
@@ -83,20 +85,22 @@
 							<td id="memtype_td">프로필사진</td>
 							<td><input type="text" name="profile"/><button>사진 선택</button></td>
 						</tr>
-						<tr>
-							<td colspan="2" style="text-align: center;"><button id="join_confirm_btn">확인</button>&nbsp;<button>취소</button></td>
-						</tr>
 					</table>
+					<input type="hidden" name="cmd" value="join"/>
+					<input type="hidden" name="page" value="login"/>
+					<input type="hidden" name="dir" value="user" />
 				</form>
 			</article>
-			
+		</section>
+		<section id="confirm_section">
+			<button id="join_confirm_btn">확인</button>&nbsp;<button>취소</button>
 		</section>
 	</div>
 <%@ include file="../common/footer.jsp" %>
 <script>
 	document.querySelector('#join_confirm_btn').addEventListener('click', 
 		function () {
-			document.querySelect('#join_form').submit();
+			document.querySelector('#member_form').submit();
 		}, false);
 	
 </script>

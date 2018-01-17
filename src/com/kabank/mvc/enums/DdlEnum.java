@@ -23,10 +23,20 @@ public enum DdlEnum {
 			return "CREATE TABLE Attend("
 					+ "seq NUMBER PRIMARY KEY,"
 					+ "week VARCHAR2(10),"
-					+ "status VARCHAR2(10)"
+					+ "status VARCHAR2(10),"
 					+ "id VARCHAR2(20)"
 					+ ")";
 		}
-	};
-	
+	}, CREATE_TABLE_BANK{
+		@Override
+		public String toString() {
+			return "CREATE TABLE Bank("
+				   +"customer_num VARCHAR2(20) PRIMARY KEY,"
+				   +"account_num VARCHAR2(20) not null,"
+				   +"money VARCHAR2(20) default 0,"
+				   +"id VARCHAR2(20),"
+				   +"FOREIGN KEY (id) REFERENCES MEMBER(id) ON DELETE CASCADE"
+				   +")";
+		}
+	}
 }

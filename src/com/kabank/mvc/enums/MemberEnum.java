@@ -19,5 +19,11 @@ public enum MemberEnum {
 		public String toString() {
 			return "UPDATE Member SET pw='$' WHERE id LIKE '@'";
 		}
+	},
+	UPDATE_TEST{
+		@Override
+		public String toString() {
+			return "UPDATE Member SET  WHERE id LIKE '@'";
+		}
 	}
 }

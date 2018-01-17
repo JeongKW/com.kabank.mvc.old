@@ -5,6 +5,8 @@ import java.sql.*;
 
 import com.kabank.mvc.command.InitCommand;
 import com.kabank.mvc.dao.MemberDAO;
+import com.kabank.mvc.decorate.ExcuteQuery;
+import com.kabank.mvc.decorate.ExcuteUpdate;
 import com.kabank.mvc.domain.MemberBean;
 import com.kabank.mvc.enums.DdlEnum;
 import com.kabank.mvc.enums.DmlEnum;
@@ -13,7 +15,8 @@ import com.kabank.mvc.enums.TnameEnum;
 import com.kabank.mvc.enums.Vendor;
 import com.kabank.mvc.factory.DatabaseFactory;
 import com.kabank.mvc.factory.SqlFactory;
-import com.kabank.mvc.factory.SqlReplaceFactory;
+import com.kabank.mvc.query.member.DeleteMemberQuery;
+import com.kabank.mvc.query.member.LoginQuery;
 
 public class MemberDAOImpl implements MemberDAO{
 	public static MemberDAO getInstance() { return new MemberDAOImpl(); }
@@ -56,11 +59,10 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public void insertMember(MemberBean m) {
+	public void insertMember() {
 		try {
 			DatabaseFactory.create(Vendor.ORACLE).getConnection().createStatement()
-			.executeUpdate(String.format(SqlFactory.create(12, DmlEnum.INSERT.toString(), DmlEnum.INTOVAL_MEMBER.toString()),
-					m.getId(), m.getPw(), m.getName(), m.getSsn(), m.getPhone(), m.getEmail(), m.getProfile(), m.getAddr()));
+			.executeUpdate(InitCommand.cmd.getSql());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -93,38 +95,11 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Override
 	public MemberBean login() {
-		System.out.println("----Member-D : Login In----");
-		StringBuffer sql = new StringBuffer(MemberEnum.LOGIN.toString());
-		String[] arr = InitCommand.cmd.getData().split("/");
-		System.out.println("ID : " + arr[0]);
-		System.out.println("PW : " + arr[1]);
-		sql.replace(sql.indexOf("$"), sql.indexOf("$")+1, arr[0]);
-		sql.replace(sql.indexOf("@"), sql.indexOf("@")+1, arr[1]);
-		System.out.println("SQL : " + sql.toString());
-		MemberBean member = null;
-		try {
-			ResultSet rs = DatabaseFactory.create(Vendor.ORACLE).getConnection()
-					.createStatement().executeQuery(sql.toString());
-			while(rs.next()) {
-				member = new MemberBean();
-				member.setId(rs.getString(MemberEnum.ID.name()));
-				member.setPw(rs.getString(MemberEnum.PW.name()));
-				member.setName(rs.getString(MemberEnum.NAME.name()));
-				member.setSsn(rs.getString(MemberEnum.SSN.name()));
-				member.setPhone(rs.getString(MemberEnum.PHONE.name()));
-				member.setEmail(rs.getString(MemberEnum.EMAIL.name()));
-				member.setProfile(rs.getString(MemberEnum.PROFILE.name()));
-				member.setAddr(rs.getString(MemberEnum.ADDR.name()));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.out.println("----Member-D : Login Out----");
-		return member;
+		return (MemberBean) new ExcuteQuery(new LoginQuery()).excute();
 	}
 
 	@Override
-	public void update() {
+	public void updateMember() {
 		System.out.println("----Member-D : Update In----");
 		try {
 			DatabaseFactory.create(Vendor.ORACLE).getConnection()
@@ -133,6 +108,13 @@ public class MemberDAOImpl implements MemberDAO{
 			e.printStackTrace();
 		}
 		System.out.println("----Member-D : Update Out----");
+	}
+
+	@Override
+	public void deleteMember() {
+		System.out.println("----Member-D : Delete In----");
+		new ExcuteUpdate(new DeleteMemberQuery()).excute();
+		System.out.println("----Member-D : Delete Out----");
 	}
 
 }

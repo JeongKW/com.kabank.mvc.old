@@ -18,16 +18,17 @@ public class AdminController extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AdminService service = new AdminServiceImpl();
-		String dir = request.getServletPath().split(PathEnum.SEPARATOR.getValue())[1];
-		String action = request.getServletPath().split(PathEnum.SEPARATOR.getValue())[2].split(PathEnum.DOT.getValue())[0];
 		String dest = "";
-		switch(action) {
+		String dir = "";
+		switch(request.getParameter("cmd")) {
 			case "main":
-				dest = action;
+				dest = "main";
+				dir = "admin";
 				break;
 			case "create_table":
 				service.createTable(request.getParameter("tname"));
 				dest = "main";
+				dir = "admin";
 				break;
 		}
 		request.getRequestDispatcher(

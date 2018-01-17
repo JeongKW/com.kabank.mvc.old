@@ -20,13 +20,15 @@
 					<td>a</td>
 					<td>
 						테이블 생성<br/>
-					<form id="create_form" action="${pageContext.request.contextPath}/admin/create_table.do ">
+					<form id="create_form" action="${ctx}/admin.do">
 						<select name="tname" id="tname">
 							<option>선택하세요</option>
 							<option value="member">회원테이블</option>
 							<option value="attend">출석테이블</option>
+							<option value="bank">카카오테이블</option>
 						</select>
 						<button id="create_btn">생 성</button>
+						<input type="hidden" name="cmd" value="create_table" />
 					</form>
 					</td>
 				</tr>

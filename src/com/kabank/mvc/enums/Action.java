@@ -1,7 +1,8 @@
 package com.kabank.mvc.enums;
 
 public enum Action {
-	MOVE, ADD, LOGIN, JOIN, CHANGE,
+	MOVE, ADD, LOGIN, JOIN, CHANGE, DELETE, TEST,
+	CREATE,
 	VIEW{
 		@Override
 		public String toString() {

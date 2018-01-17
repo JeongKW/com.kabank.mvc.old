@@ -7,7 +7,7 @@
 	body{ text-align: center; }
 	#wrapper{ width: 98%; margin: 0 auto; text-align: left; 
 			  min-height: calc(100vh - 150px); margin-top: 5px; }
-	#header{ height: 20px; width: 98%;  text-align: right;}
+	#header{ height: 20px; width: 98%;  text-align: left;}
 	#nav{ background: #000080; padding: 5px 10px; width: auto; margin-bottom: 10px; }
 	#nav li{ display: inline-block; list-style: none; padding: 2px; }
 	#nav li a{ color: white; font: bold 14px verdana, sans-serif; }

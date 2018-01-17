@@ -1,4 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header id="header">
-	<a href="${view}/user/login.jsp" style="text-align: right;">logout</a>
+	<h1>BITCAMP PROJECT</h1>
 </header>

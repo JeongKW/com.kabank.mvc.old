@@ -8,7 +8,4 @@
 	table#bitmain_table { width: 80%; height: 200px; border: 1px solid gray; }
 	#bitmain_table tr { width: 80px; height: 40px; border: 1px solid gray; }
 	#bitmain_table tr td, th { border: inherit; }
-	button#attend_result { width:100px; height: 40px;}
-	button#attend_pwch { width:100px; height: 40px;}
-	table#button_s tr td{  }
 	img#profile_img { width: 200px; height: 200px }
