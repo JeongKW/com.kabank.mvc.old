@@ -46,7 +46,13 @@ public enum DmlEnum {
 	INSERT_BANK{
 		@Override
 		public String toString() {
-			return "INSERT INTO BANK(" + BankEnum.PROPERTIES.toString() + ") VALUES('%s', '%s', '%s', '%s')";
+			return "INSERT INTO BANK(" + BankEnum.PROPERTIES.toString() + ") VALUES(%s, '%s', '%s', '%s')";
+		}
+	},
+	BANK_INCRETMENT{
+		@Override
+		public String toString() {
+			return "create sequence customer_num start with 1000 increment by 1";
 		}
 	}
 }

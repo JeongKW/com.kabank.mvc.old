@@ -5,8 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.kabank.mvc.enums.DmlEnum;
-import com.kabank.mvc.factory.CreateFactory;
 import com.kabank.mvc.factory.SqlReplaceFactory;
+import com.kabank.mvc.util.CreateQuery;
 import com.kabank.mvc.util.ParamsIterator;
 
 public class InsertCommand implements IOrder{
@@ -35,7 +35,7 @@ public class InsertCommand implements IOrder{
 			break;
 			case "kakao":
 				InitCommand.cmd.setSql(String.format(DmlEnum.INSERT_BANK.toString(),
-					CreateFactory.createCustomNum(), CreateFactory.createAccountNum(), "0", map.get("id")));
+					"customer_num.nextval", CreateQuery.createAccountNum(), "0", map.get("id")));
 				System.out.println(InitCommand.cmd.getSql());
 			break;
 		}

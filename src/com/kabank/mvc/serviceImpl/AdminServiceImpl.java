@@ -6,6 +6,8 @@ import com.kabank.mvc.daoImpl.MemberDAOImpl;
 import com.kabank.mvc.service.AdminService;
 
 public class AdminServiceImpl implements AdminService{
+	public static AdminService getInstance() { return new AdminServiceImpl(); }
+	private AdminServiceImpl() {	}
 	@Override
 	public void createTable(String tname) {
 		switch(tname) {

@@ -1,16 +1,12 @@
 package com.kabank.mvc.util;
 
-import com.kabank.mvc.enums.DML;
-import com.kabank.mvc.enums.MemberProps;
-import com.kabank.mvc.factory.PropertiesFactory;
 
 public class MainTest {
 	public static void main(String[] args) {
-		System.out.println(DML.SELECT + " "
-				+ PropertiesFactory.create(MemberProps.values()) + " "
-				+ DML.FROM + " MEMBER "
-				+ DML.WHERE
-				+ " id LIKE '?' "
-				+ DML.AND + " pw LIKE '?'");
+		String test = "cmd_151";
+		String test2 = "cmaqe";
+		
+		System.out.println(test.substring(0, (test.indexOf("_") == -1) ? test.length() : test.indexOf("_")));
+		System.out.println(test2.substring(0, (test2.indexOf("_") == -1) ? test2.length() : test2.indexOf("_")));
 	}
 }

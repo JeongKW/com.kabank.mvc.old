@@ -7,7 +7,11 @@ public class BankServiceImpl implements BankService{
 	public static BankService getInstance() { return new BankServiceImpl(); }
 	private BankServiceImpl() { }
 	@Override
-	public void createAccount() { 
+	public void createBank() { 
+		BankDAOImpl.getInstance().createBank();
+	}
+	@Override
+	public void createAccount() {
 		BankDAOImpl.getInstance().createAccount();
 	}
 }

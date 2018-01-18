@@ -21,3 +21,4 @@ insert into bank(customer_num, account_num, money, id) values(customer_num.nextv
 
 drop sequence customer_num;
 select seq_bbs_no.currval from dual;
+
